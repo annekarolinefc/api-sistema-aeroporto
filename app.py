@@ -2,9 +2,11 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import os
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
+cors = CORS(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -40,6 +42,7 @@ airport_schema = AirportSchema()
 airport_all_schema = AirportSchema(many=True)
 
 @app.route('/aeroporto', methods=['POST'])
+@cross_origin()
 def add_airport():
     nome_aeroporto = request.json['nome_aeroporto']
     codigo_iata = request.json['codigo_iata']
