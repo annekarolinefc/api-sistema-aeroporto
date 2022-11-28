@@ -41,8 +41,8 @@ class AirportSchema(ma.Schema):
 airport_schema = AirportSchema()
 airport_all_schema = AirportSchema(many=True)
 
-@app.route('/aeroporto', methods=['POST'])
 @cross_origin()
+@app.route('/aeroporto', methods=['POST'])
 def add_airport():
     nome_aeroporto = request.json['nome_aeroporto']
     codigo_iata = request.json['codigo_iata']
